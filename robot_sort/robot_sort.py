@@ -3,11 +3,11 @@ class SortingRobot:
         """
         SortingRobot takes a list and sorts it.
         """
-        self._list = l          # The list the robot is tasked with sorting
-        self._item = None       # The item the robot is holding
-        self._position = 0      # The list position the robot is at
-        self._light = "OFF"     # The state of the robot's light
-        self._time = 0          # A time counter (stretch)
+        self._list = l  # The list the robot is tasked with sorting
+        self._item = None  # The item the robot is holding
+        self._position = 0  # The list position the robot is at
+        self._light = "OFF"  # The state of the robot's light
+        self._time = 0  # A time counter (stretch)
 
     def can_move_right(self):
         """
@@ -81,11 +81,13 @@ class SortingRobot:
         Turn on the robot's light
         """
         self._light = "ON"
+
     def set_light_off(self):
         """
         Turn off the robot's light
         """
         self._light = "OFF"
+
     def light_is_on(self):
         """
         Returns True if the robot's light is on and False otherwise.
@@ -97,23 +99,32 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
+
         self.swap_item()
-        i = 0
-        while i < 30:
+        while True:
+            if self.light_is_on():
+                break
+
+            self.set_light_on()
             while self.move_right():
                 if self.compare_item() is not None:
-                    if self.compare_item() == -1:
+                    if self.compare_item() == -1 or self.compare_item() == 0:
                         self.swap_item()
+                    else:
+                        self.set_light_off()
 
             if self.compare_item() is not None:
-                if self.compare_item() == 1:
+                if self.compare_item() == 1 or self.compare_item() == 0:
                     self.swap_item()
+                else:
+                    self.set_light_off()
 
             while self.move_left():
                 if self.compare_item() is not None:
-                    if self.compare_item() == 1:
+                    if self.compare_item() == 1 or self.compare_item() == 0:
                         self.swap_item()
-            i+=1
+                    else:
+                        self.set_light_off()
         self.swap_item()
 
 
@@ -121,7 +132,7 @@ if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [4, 2, 1, 5, 3, 3, 2, 5, 323, 234, 234, 23, 12, 23,53, 12 , 86, 23]
+    l = [5, 6, 7, 23, 35, 523, 63, 2, 1, 3, 4]
 
     robot = SortingRobot(l)
 
