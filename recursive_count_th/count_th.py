@@ -5,7 +5,8 @@ Your function must utilize recursion. It cannot contain any loops.
 '''
 
 
-def count_th(word, result = 0):
+def count_th(word):
+    result = 0
     if len(word) < 2:
         return 0
 
